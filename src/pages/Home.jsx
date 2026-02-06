@@ -181,9 +181,15 @@ const Home = () => {
                             >
                                 <div className="listing-image-container">
                                     <img 
-                                        src={listing.image ? `/${listing.image}` : (listing.vendor?.image ? `/${listing.vendor.image}` : '/placeholder-food.jpg')} 
+                                        src={
+                                            (listing.image ? listing.image : (listing.vendor?.image ? listing.vendor.image : 'placeholder-food.jpg'))
+                                            .startsWith('http') 
+                                                ? (listing.image || listing.vendor?.image) 
+                                                : `${import.meta.env.VITE_API_URL || ''}/${(listing.image || listing.vendor?.image || 'placeholder-food.jpg').replace(/^\//, '')}`
+                                        } 
                                         alt={listing.title || listing.vendor?.name}
                                         className="listing-image"
+                                        onError={(e) => { e.target.src = '/placeholder-food.jpg'; }}
                                     />
                                     {isSoldOut ? (
                                         <div className="sold-out-badge">SOLD OUT</div>

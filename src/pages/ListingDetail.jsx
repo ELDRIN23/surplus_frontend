@@ -84,8 +84,14 @@ const ListingDetail = () => {
             <div className="listing-detail-container">
                 <div className="listing-detail-image">
                     <img 
-                        src={listing.image ? `/${listing.image}` : '/placeholder-food.jpg'} 
+                        src={
+                            (listing.image ? listing.image : 'placeholder-food.jpg')
+                            .startsWith('http') 
+                                ? listing.image 
+                                : `${import.meta.env.VITE_API_URL || ''}/${(listing.image || 'placeholder-food.jpg').replace(/^\//, '')}`
+                        } 
                         alt={listing.title} 
+                        onError={(e) => { e.target.src = '/placeholder-food.jpg'; }}
                     />
                 </div>
                 

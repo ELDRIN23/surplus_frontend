@@ -196,9 +196,15 @@ const AdminDashboard = () => {
                                 <div className="vendor-card-header">
                                     <div style={{display: 'flex', gap: '15px', alignItems: 'center'}}>
                                         <img 
-                                            src={vendor.image ? `/${vendor.image}` : '/placeholder-restaurant.jpg'} 
+                                            src={
+                                                (vendor.image ? vendor.image : 'placeholder-restaurant.jpg')
+                                                .startsWith('http') 
+                                                    ? vendor.image 
+                                                    : `${import.meta.env.VITE_API_URL || ''}/${(vendor.image || 'placeholder-restaurant.jpg').replace(/^\//, '')}`
+                                            } 
                                             alt={vendor.name} 
                                             className="vendor-avatar"
+                                            onError={(e) => { e.target.src = '/placeholder-restaurant.jpg'; }}
                                         />
                                         <div>
                                             <h3 style={{margin: 0, fontSize: '1.2rem'}}>{vendor.name}</h3>
