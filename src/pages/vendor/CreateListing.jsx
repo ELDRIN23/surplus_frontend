@@ -101,10 +101,7 @@ const CreateListing = () => {
                     <label>Pickup End Time</label>
                     <input name="pickupEnd" type="datetime-local" onChange={handleChange} required />
                 </div>
-                 <div className="form-group">
-                    <label>Image</label>
-                    <input type="file" onChange={handleFile} accept="image/*" />
-                </div>
+
                 <button type="submit" className="btn btn-primary btn-block">Create Listing</button>
             </form>
         </div>

@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import './Home.css';
 
 const Home = () => {
@@ -14,6 +11,9 @@ const Home = () => {
     const [isAgreed, setIsAgreed] = useState(false);
 
     useEffect(() => {
+        // Force scroll to top on refresh
+        window.scrollTo(0, 0);
+        
         const hasAgreed = localStorage.getItem('safety_agreed');
         if (!hasAgreed) {
             setShowSafetyModal(true);
@@ -49,44 +49,6 @@ const Home = () => {
     const calculateDiscount = (original, discounted) => {
         return Math.round(((original - discounted) / original) * 100);
     };
-
-    const heroSettings = {
-        dots: true,
-        infinite: true,
-        speed: 800,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        fade: true,
-        arrows: false
-    };
-
-    const carouselSettings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                }
-            },
-            {
-                breakpoint: 640,
-                settings: {
-                    slidesToShow: 1,
-                }
-            }
-        ]
-    };
-
-    const featuredListings = listings.slice(0, 6);
 
     if (loading) return <div className="loader"></div>;
 
@@ -134,9 +96,9 @@ const Home = () => {
                 </div>
             )}
 
-            {/* Category Filter Bar - At the Top */}
-            <div className="filter-section category-top">
-                <h2 className="filter-title">Browse by Category</h2>
+            {/* Category Filter Bar */}
+            <div className="filter-section category-top" id="marketplace" style={{ paddingTop: '0' }}>
+                <h2 className="filter-title">Browse Marketplace</h2>
                 <div className="filter-bar">
                     <button 
                         className={`filter-btn ${selectedCategory === 'All' ? 'active' : ''}`}
@@ -181,15 +143,11 @@ const Home = () => {
                             >
                                 <div className="listing-image-container">
                                     <img 
-                                        src={
-                                            (listing.image ? listing.image : (listing.vendor?.image ? listing.vendor.image : 'placeholder-food.jpg'))
-                                            .startsWith('http') 
-                                                ? (listing.image || listing.vendor?.image) 
-                                                : `${import.meta.env.VITE_API_URL || ''}/${(listing.image || listing.vendor?.image || 'placeholder-food.jpg').replace(/^\//, '')}`
-                                        } 
+                                        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2"
                                         alt={listing.title || listing.vendor?.name}
                                         className="listing-image"
-                                        onError={(e) => { e.target.src = '/placeholder-food.jpg'; }}
+                                        loading="lazy"
+                                        onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&blur=2'; }}
                                     />
                                     {isSoldOut ? (
                                         <div className="sold-out-badge">SOLD OUT</div>

@@ -4,7 +4,7 @@ import './AiSupportBot.css';
 const AiSupportBot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
-        { id: 1, text: "Hi! I'm the Surplus Support Bot. How can I help you today?", sender: 'bot' }
+        { id: 1, text: "Hi! I'm Eva, your Surplus Market assistant. How can I help you today?", sender: 'bot' }
     ]);
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef(null);
@@ -48,8 +48,8 @@ const AiSupportBot = () => {
             {/* Toggle Button */}
             {!isOpen && (
                 <button className="ai-bot-toggle" onClick={() => setIsOpen(true)}>
-                    <span className="bot-icon">🤖</span>
-                    <span className="bot-label">Help</span>
+                    <span className="bot-icon">💬</span>
+                    <span className="bot-label">Ask Eva</span>
                 </button>
             )}
 
@@ -57,9 +57,9 @@ const AiSupportBot = () => {
             <div className={`ai-chat-window ${isOpen ? 'active' : ''}`}>
                 <div className="chat-header">
                     <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                        <span style={{fontSize: '1.5rem'}}>🤖</span>
+                        <span style={{fontSize: '1.5rem'}}>💬</span>
                         <div>
-                            <h4>Surplus Assistant</h4>
+                            <h4>Ask Eva</h4>
                             <span className="status-dot">Online</span>
                         </div>
                     </div>

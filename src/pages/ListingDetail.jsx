@@ -84,14 +84,9 @@ const ListingDetail = () => {
             <div className="listing-detail-container">
                 <div className="listing-detail-image">
                     <img 
-                        src={
-                            (listing.image ? listing.image : 'placeholder-food.jpg')
-                            .startsWith('http') 
-                                ? listing.image 
-                                : `${import.meta.env.VITE_API_URL || ''}/${(listing.image || 'placeholder-food.jpg').replace(/^\//, '')}`
-                        } 
+                        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2"
                         alt={listing.title} 
-                        onError={(e) => { e.target.src = '/placeholder-food.jpg'; }}
+                        onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&blur=2'; }}
                     />
                 </div>
                 

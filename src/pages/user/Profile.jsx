@@ -163,10 +163,7 @@ const UserProfile = () => {
 
                         {editMode ? (
                             <form className="profile-form" onSubmit={handleUpdateProfile}>
-                                <div className="form-group">
-                                    <label>Change Photo</label>
-                                    <input type="file" accept="image/*" onChange={(e) => setProfileImage(e.target.files[0])} />
-                                </div>
+
                                 <div className="form-group">
                                     <label>Full Name</label>
                                     <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
@@ -223,7 +220,7 @@ const UserProfile = () => {
                             <div className="cart-list">
                                 {cart.map(item => (
                                     <div key={item._id} className="cart-item">
-                                        <img src={item.listingId.image ? `/${item.listingId.image}` : '/placeholder-food.jpg'} alt="" className="cart-thumb" />
+                                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2" alt="" className="cart-thumb" />
                                         <div className="cart-details">
                                             <h4>{item.listingId.title}</h4>
                                             <p>{item.quantity} x ₹{item.listingId.discountedPrice}</p>

@@ -51,10 +51,7 @@ const RegisterUser = () => {
             {error && <div className="badge badge-danger" style={{ marginBottom: '1rem', width: '100%' }}>{error}</div>}
             
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Profile Photo (Optional)</label>
-                    <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} style={{ padding: '10px 0' }} />
-                </div>
+
                 <div className="form-group">
                     <label>Full Name</label>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />

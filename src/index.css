@@ -63,6 +63,11 @@
 html {
   background-color: var(--bg-primary);
   transition: background-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Prevent horizontal scroll */
+  overflow-x: hidden !important;
+  width: 100%;
+  /* Fix auto-scroll on refresh */
+  scroll-behavior: auto !important;
 }
 
 body {
@@ -74,6 +79,31 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
   min-height: 100vh;
+  /* Prevent horizontal scroll */
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Fix for mobile auto-scroll down on refresh */
+#root {
+  overflow-x: hidden !important;
+  width: 100%;
+}
+
+.App {
+  overflow-x: hidden !important;
+  width: 100%;
+}
+
+/* Prevent all elements from causing horizontal scroll */
+* {
+  box-sizing: border-box;
+}
+
+*:not(html):not(body) {
+  max-width: 100%;
 }
 
 /* Scrollbar */
@@ -101,6 +131,29 @@ body {
   max-width: 1320px;
   margin: 0 auto;
   padding: 0 32px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  h1 {
+    font-size: 2.25rem !important;
+  }
+
+  h2 {
+    font-size: 1.75rem !important;
+  }
+
+  h3 {
+    font-size: 1.35rem !important;
+  }
+
+  p {
+    font-size: 0.95rem !important;
+  }
 }
 
 /* Typography - Luxurious */
@@ -132,6 +185,7 @@ h1 {
 [data-theme='light'] h1 {
   background: linear-gradient(135deg, #000000 0%, #444444 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -529,12 +583,26 @@ select:focus {
   transition: var(--transition);
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 20px;
+    border-radius: var(--radius-sm);
+  }
 }
 
 .card:hover {
   border-color: var(--border-focus);
   box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
+}
+
+.glass-card {
+  background: rgba(var(--bg-card-rgb), 0.6) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Navbar */

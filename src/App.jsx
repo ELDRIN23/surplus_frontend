@@ -1,9 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import AiSupportBot from './components/AiSupportBot';
-
 
 // Pages
 import Home from './pages/Home';
@@ -21,54 +21,58 @@ import EditListing from './pages/vendor/EditListing';
 import AdminDashboard from './pages/admin/Dashboard';
 import UserProfile from './pages/user/Profile';
 
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+    return null;
+};
 
 function App() {
+    return (
+        <AuthProvider>
+            <Router>
+                <ScrollToTop />
+                <div className="App">
+                    <Navbar />
+                    <div className="container" style={{ paddingTop: '20px', paddingBottom: '50px' }}>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register-user" element={<RegisterUser />} />
+                            <Route path="/register-vendor" element={<RegisterVendor />} />
+                            <Route path="/listing/:id" element={<ListingDetail />} />
 
+                            {/* User Routes */}
+                            <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+                                <Route path="/my-orders" element={<UserDashboard />} />
+                                <Route path="/profile" element={<UserProfile />} />
+                            </Route>
 
-  return (
-    <AuthProvider>
+                            {/* Vendor & Admin Routes for Management */}
+                            <Route element={<ProtectedRoute allowedRoles={['vendor', 'admin']} />}>
+                                <Route path="/vendor/edit-listing/:id" element={<EditListing />} />
+                            </Route>
 
-      <Router>
-        <div className="App">
+                            {/* Strict Vendor Routes */}
+                            <Route element={<ProtectedRoute allowedRoles={['vendor']} />}>
+                                <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+                                <Route path="/vendor/create-listing" element={<CreateListing />} />
+                                <Route path="/vendor/orders" element={<VendorOrders />} />
+                            </Route>
 
-          <Navbar />
-          <div className="container" style={{ paddingTop: '20px', paddingBottom: '50px' }}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register-user" element={<RegisterUser />} />
-              <Route path="/register-vendor" element={<RegisterVendor />} />
-              <Route path="/listing/:id" element={<ListingDetail />} />
-
-              {/* User Routes */}
-              <Route element={<ProtectedRoute allowedRoles={['user']} />}>
-                 <Route path="/my-orders" element={<UserDashboard />} />
-                 <Route path="/profile" element={<UserProfile />} />
-              </Route>
-
-              {/* Vendor & Admin Routes for Management */}
-              <Route element={<ProtectedRoute allowedRoles={['vendor', 'admin']} />}>
-                 <Route path="/vendor/edit-listing/:id" element={<EditListing />} />
-              </Route>
-
-              {/* Strict Vendor Routes */}
-              <Route element={<ProtectedRoute allowedRoles={['vendor']} />}>
-                 <Route path="/vendor-dashboard" element={<VendorDashboard />} />
-                 <Route path="/vendor/create-listing" element={<CreateListing />} />
-                 <Route path="/vendor/orders" element={<VendorOrders />} />
-              </Route>
-
-              {/* Admin Routes */}
-              <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
-              </Route>
-            </Routes>
-          </div>
-          <AiSupportBot />
-        </div>
-      </Router>
-    </AuthProvider>
-  );
+                            {/* Admin Routes */}
+                            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                            </Route>
+                        </Routes>
+                    </div>
+                    <AiSupportBot />
+                </div>
+            </Router>
+        </AuthProvider>
+    );
 }
 
 export default App;

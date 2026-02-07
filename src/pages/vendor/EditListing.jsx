@@ -135,11 +135,7 @@ const EditListing = () => {
                     <label>Pickup End Time</label>
                     <input name="pickupEnd" type="datetime-local" value={formData.pickupEnd} onChange={handleChange} required />
                 </div>
-                 <div className="form-group">
-                    <label>Image (Optional)</label>
-                    <input type="file" onChange={handleFile} accept="image/*" />
-                    <p style={{fontSize: '0.8rem', color: '#888'}}>Leave blank to keep existing image</p>
-                </div>
+
                 <div style={{display: 'flex', gap: '1rem', marginTop: '1.5rem'}}>
                     <button type="submit" className="btn btn-primary" style={{flex: 1}}>Update Listing</button>
                     <button type="button" onClick={() => navigate('/vendor-dashboard')} className="btn btn-secondary" style={{flex: 1}}>Cancel</button>

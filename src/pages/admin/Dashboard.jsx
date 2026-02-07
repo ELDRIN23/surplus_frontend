@@ -196,15 +196,10 @@ const AdminDashboard = () => {
                                 <div className="vendor-card-header">
                                     <div style={{display: 'flex', gap: '15px', alignItems: 'center'}}>
                                         <img 
-                                            src={
-                                                (vendor.image ? vendor.image : 'placeholder-restaurant.jpg')
-                                                .startsWith('http') 
-                                                    ? vendor.image 
-                                                    : `${import.meta.env.VITE_API_URL || ''}/${(vendor.image || 'placeholder-restaurant.jpg').replace(/^\//, '')}`
-                                            } 
+                                            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2"
                                             alt={vendor.name} 
                                             className="vendor-avatar"
-                                            onError={(e) => { e.target.src = '/placeholder-restaurant.jpg'; }}
+                                            onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&blur=2'; }}
                                         />
                                         <div>
                                             <h3 style={{margin: 0, fontSize: '1.2rem'}}>{vendor.name}</h3>
@@ -315,7 +310,7 @@ const AdminDashboard = () => {
                                             <tr key={listing._id}>
                                                 <td data-label="Food Item">
                                                     <div className="table-item-info">
-                                                        <img src={listing.image ? `/${listing.image}` : '/placeholder-food.jpg'} alt="" />
+                                                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2" alt="" />
                                                         <span>{listing.title}</span>
                                                     </div>
                                                 </td>

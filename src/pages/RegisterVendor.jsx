@@ -88,10 +88,7 @@ const RegisterVendor = () => {
                     </div>
                 </div>
 
-                <div className="form-group">
-                    <label>Logo / Restaurant Image</label>
-                    <input type="file" onChange={handleFile} accept="image/*" />
-                </div>
+
                 <div className="form-group">
                     <label>Email</label>
                     <input name="email" type="email" value={formData.email} onChange={handleChange} required />
