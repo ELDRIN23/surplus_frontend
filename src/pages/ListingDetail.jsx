@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import FakeRazorpay from '../components/FakeRazorpay';
 import './ListingDetail.css';
 
 const ListingDetail = () => {
@@ -11,6 +12,8 @@ const ListingDetail = () => {
     const [loading, setLoading] = useState(true);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+    const [pendingOrderId, setPendingOrderId] = useState(null);
 
     useEffect(() => {
         const fetchListing = async () => {
@@ -59,20 +62,26 @@ const ListingDetail = () => {
                 items: [{ listingId: listing._id, quantity: parseInt(quantity) }]
             }, config);
 
-            // FAKE PAYMENT SIMULATION (Bypassing Razorpay for dev/test)
-            const confirmSimulate = window.confirm(`Simulate Payment for ₹${listing.discountedPrice * quantity}?`);
-            
-            if (confirmSimulate) {
-                await axios.post(`/api/orders/${orderData.order._id}/simulate-payment`, {}, config);
-                alert('Payment Successfull! Your digital receipt is ready.');
-                navigate('/profile'); // Redirect to profile to see orders
-            } else {
-                alert('Payment cancelled.');
-            }
+            setPendingOrderId(orderData.order._id);
+            setIsPaymentModalOpen(true);
 
         } catch (error) {
             console.error(error);
             alert(error.response?.data?.message || 'Order failed');
+        }
+    };
+
+    const handlePaymentSuccess = async (paymentId) => {
+        try {
+            const token = JSON.parse(localStorage.getItem('userInfo')).token;
+            const config = { headers: { Authorization: `Bearer ${token}` } };
+            
+            await axios.post(`/api/orders/${pendingOrderId}/simulate-payment`, { paymentId }, config);
+            setIsPaymentModalOpen(false);
+            navigate('/profile'); 
+        } catch (error) {
+            console.error('Simulation sync failed', error);
+            alert('Payment recorded but sync failed.');
         }
     };
 
@@ -133,6 +142,15 @@ const ListingDetail = () => {
                     </div>
                 </div>
             </div>
+
+            <FakeRazorpay 
+                isOpen={isPaymentModalOpen}
+                amount={listing.discountedPrice * quantity}
+                onClose={() => setIsPaymentModalOpen(false)}
+                onPaymentSuccess={handlePaymentSuccess}
+                userName={user?.name}
+                userEmail={user?.email}
+            />
         </div>
     );
 };

@@ -1,0 +1,322 @@
+.rzp-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+.rzp-modal {
+    width: 400px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #333;
+    animation: slideUp 0.4s ease;
+}
+
+.rzp-header {
+    background: #232233;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rzp-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.rzp-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.rzp-header-text h3 {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.rzp-header-text p {
+    font-size: 12px;
+    margin: 4px 0 0;
+    opacity: 0.8;
+}
+
+.rzp-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.rzp-body {
+    padding: 25px;
+    min-height: 350px;
+}
+
+.rzp-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+.rzp-method-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.rzp-method-item:hover {
+    background: #f8faff;
+    border-color: #339aff;
+}
+
+.rzp-method-item.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.rzp-method-icon {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.rzp-method-info h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.rzp-method-info p {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: #777;
+}
+
+.rzp-arrow {
+    margin-left: auto;
+    color: #ccc;
+    font-size: 20px;
+}
+
+/* Form Styles */
+.rzp-card-form {
+    animation: fadeIn 0.3s ease;
+}
+
+.rzp-input-group {
+    margin-bottom: 15px;
+}
+
+.rzp-card-input-wrapper {
+    position: relative;
+}
+
+.rzp-card-type {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    font-weight: 700;
+    color: #339aff;
+    background: #f0f7ff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+.rzp-input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.rzp-card-form input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.rzp-card-form input:focus {
+    border-color: #339aff;
+}
+
+.rzp-pay-btn {
+    width: 100%;
+    padding: 14px;
+    background: #339aff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.rzp-pay-btn:hover {
+    background: #2185eb;
+}
+
+.rzp-back-btn {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    color: #777;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* Loader Styles */
+.rzp-loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+}
+
+.rzp-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #339aff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.rzp-subtext {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}
+
+/* Success Styles */
+.rzp-success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rzp-checkmark {
+    width: 80px;
+    height: 80px;
+    background: #4caf50;
+    color: #fff;
+    font-size: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.rzp-success-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+.rzp-footer {
+    background: #f9f9f9;
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.rzp-footer p {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.rzp-footer p span {
+    font-weight: 700;
+    color: #666;
+}
+
+.rzp-secure {
+    font-size: 10px;
+    color: #aaa;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
