@@ -41,13 +41,25 @@ const Home = () => {
             setListings(data);
             setLoading(false);
         } catch (error) {
-            console.error(error);
+            console.error('❌ Failed to fetch listings:', error);
+            if (error.response) {
+                console.error('Server responded with:', error.response.status, error.response.data);
+            } else if (error.request) {
+                console.error('No response received. Check CORS or if the backend is down. URL:', axios.defaults.baseURL + url);
+            }
             setLoading(false);
         }
     };
 
     const calculateDiscount = (original, discounted) => {
-        return Math.round(((original - discounted) / original) * 100);
+        return Math.round(((original - discounted) / (original || 1)) * 100);
+    };
+
+    const getImageUrl = (imagePath) => {
+        if (!imagePath) return "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2";
+        if (imagePath.startsWith('http')) return imagePath;
+        const apiBase = axios.defaults.baseURL || '';
+        return `${apiBase}/${imagePath}`;
     };
 
     if (loading) return <div className="loader"></div>;
@@ -69,9 +81,9 @@ const Home = () => {
                                 Surplus Market is a facilitator; restaurants carry full responsibility for food safety. 
                                 The company is not liable for risks or issues arising from consumption.
                             </p>
-
+                            
                             <span className="policy-link-locked">Read Policy</span>
-
+                            
                             <label className="agree-checkbox-container" style={{justifyContent: 'center', marginTop: '1.5rem'}}>
                                 <input 
                                     type="checkbox" 
@@ -81,7 +93,7 @@ const Home = () => {
                                 <span className="agree-text" style={{fontSize: '0.8rem'}}>I agree to follow safety protocols.</span>
                             </label>
                         </div>
-
+                        
                         <div className="modal-actions" style={{marginTop: '1rem'}}>
                             <button 
                                 className={`btn-modal-confirm ${!isAgreed ? 'disabled' : ''}`} 
@@ -95,7 +107,7 @@ const Home = () => {
                     </div>
                 </div>
             )}
-
+            
             {/* Category Filter Bar */}
             <div className="filter-section category-top" id="marketplace" style={{ paddingTop: '0' }}>
                 <h2 className="filter-title">Browse Marketplace</h2>
@@ -120,7 +132,7 @@ const Home = () => {
                     </button>
                 </div>
             </div>
-
+            
             {/* Listings Grid - Comes right after categories */}
             {listings.length === 0 ? (
                 <div className="empty-state">
@@ -143,7 +155,7 @@ const Home = () => {
                             >
                                 <div className="listing-image-container">
                                     <img 
-                                        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2"
+                                        src={getImageUrl(listing.image)}
                                         alt={listing.title || listing.vendor?.name}
                                         className="listing-image"
                                         loading="lazy"
@@ -165,7 +177,7 @@ const Home = () => {
                                 
                                 <div className="listing-content">
                                     <div className="vendor-info">
-                                        <span className="vendor-name">{listing.vendor.name}</span>
+                                        <span className="vendor-name">{listing.vendor?.name || 'Unknown Restaurant'}</span>
                                         {listing.vendor.rating > 0 && (
                                             <span className="vendor-rating">★ {listing.vendor.rating.toFixed(1)}</span>
                                         )}
