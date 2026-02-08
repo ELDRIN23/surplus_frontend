@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -37,10 +37,10 @@ const Login = () => {
                 <button type="submit" className="btn btn-primary btn-block">Login</button>
             </form>
             <p className="text-center" style={{ marginTop: '15px' }}>
-                New User? <a href="/register-user">Register here</a>
+                New User? <Link to="/register-user">Register here</Link>
             </p>
              <p className="text-center">
-                Are you a Vendor? <a href="/register-vendor">Register Business</a>
+                Are you a Vendor? <Link to="/register-vendor">Register Business</Link>
             </p>
         </div>
     );
