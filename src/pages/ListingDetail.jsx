@@ -34,6 +34,10 @@ const ListingDetail = () => {
             navigate('/login');
             return;
         }
+        if (user.role !== 'user') {
+            alert('Please register as a user to purchase food.');
+            return;
+        }
         try {
             const token = JSON.parse(localStorage.getItem('userInfo')).token;
             const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -50,6 +54,11 @@ const ListingDetail = () => {
     const handleBuy = async () => {
         if (!user) {
             navigate('/login');
+            return;
+        }
+
+        if (user.role !== 'user') {
+            alert('Please register as a user to purchase food.');
             return;
         }
 

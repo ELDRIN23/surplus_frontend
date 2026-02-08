@@ -12,14 +12,16 @@ const AdminDashboard = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [vendorListings, setVendorListings] = useState([]);
     const [userOrders, setUserOrders] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [view, setView] = useState('vendors'); // 'vendors', 'listings', 'users', 'user-orders'
+    const [view, setView] = useState('vendors'); // 'vendors', 'listings', 'users', 'user-orders', 'transactions'
     const [deleteModal, setDeleteModal] = useState({ show: false, vendorId: null, vendorName: '' });
 
     useEffect(() => {
         if (user?.token) {
             if (view === 'vendors') fetchVendors();
             if (view === 'users') fetchUsers();
+            if (view === 'transactions') fetchTransactions();
         }
     }, [user, view]);
 
@@ -45,6 +47,19 @@ const AdminDashboard = () => {
             setLoading(false);
         } catch (error) {
             console.error('Fetch Users Error:', error);
+            setLoading(false);
+        }
+    };
+
+    const fetchTransactions = async () => {
+        try {
+            setLoading(true);
+            const config = { headers: { Authorization: `Bearer ${user.token}` } };
+            const { data } = await axios.get('/api/admin/transactions', config);
+            setTransactions(data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Fetch Transactions Error:', error);
             setLoading(false);
         }
     };
@@ -137,7 +152,7 @@ const AdminDashboard = () => {
         }
     };
 
-    if (loading && view !== 'listings' && view !== 'user-orders') return (
+    if (loading && view !== 'listings' && view !== 'user-orders' && view !== 'transactions') return (
         <div className="admin-container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh'}}>
              <div className="loader"></div>
         </div>
@@ -174,6 +189,12 @@ const AdminDashboard = () => {
                         onClick={() => setView('users')}
                     >
                         Platform Users
+                    </button>
+                    <button 
+                        className={`admin-nav-btn ${view === 'transactions' ? 'active' : ''}`} 
+                        onClick={() => setView('transactions')}
+                    >
+                        Transactions
                     </button>
                     {view === 'listings' && (
                         <button className="admin-nav-btn active">
@@ -366,6 +387,56 @@ const AdminDashboard = () => {
                                                 <td data-label="Status">
                                                     <span className={`status-badge ${order.orderStatus}`}>
                                                         {order.orderStatus.toUpperCase()}
+                                                    </span>
+                                                </td>
+                                                <td data-label="Date">{new Date(order.createdAt).toLocaleDateString()}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {view === 'transactions' && (
+                    <div className="admin-listing-view">
+                        <div className="view-header">
+                            <h2>All Transactions</h2>
+                        </div>
+                        
+                        {transactions.length === 0 ? (
+                            <p className="empty-msg">No transactions found.</p>
+                        ) : (
+                            <div className="admin-table-container">
+                                <table className="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>User</th>
+                                            <th>Restaurant</th>
+                                            <th>Items</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {transactions.map(order => (
+                                            <tr key={order._id}>
+                                                <td data-label="Order ID">#{order._id.slice(-6)}</td>
+                                                <td data-label="User">
+                                                    <div>{order.user?.name}</div>
+                                                    <div style={{fontSize: '0.75rem', opacity: 0.7}}>{order.user?.email}</div>
+                                                </td>
+                                                <td data-label="Restaurant">{order.vendor?.name || 'Unknown'}</td>
+                                                <td data-label="Items">
+                                                    {order.items?.map(item => item.listing?.title).join(', ') || 'N/A'}
+                                                </td>
+                                                <td data-label="Amount">₹{order.totalAmount}</td>
+                                                <td data-label="Status">
+                                                    <span className={`status-badge ${order.paymentStatus}`}>
+                                                        {order.paymentStatus.toUpperCase()}
                                                     </span>
                                                 </td>
                                                 <td data-label="Date">{new Date(order.createdAt).toLocaleDateString()}</td>
