@@ -28,7 +28,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="container">
                 <Link to="/" className="navbar-brand" onClick={closeMenu}>
-                    SURPLUS <span>MARKET</span>
+                    SURPLUZ <span>MARKET</span>
                 </Link>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginLeft: 'auto', marginRight: '20px' }}>
