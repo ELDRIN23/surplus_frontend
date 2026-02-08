@@ -6,13 +6,6 @@ const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [theme, setTheme] = useState('dark');
-
-    const toggleTheme = () => {
-        const newTheme = theme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-    };
 
     const handleLogout = () => {
         logout();
@@ -30,28 +23,6 @@ const Navbar = () => {
                 <Link to="/" className="navbar-brand" onClick={closeMenu}>
                     SURPLUZ <span>MARKET</span>
                 </Link>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginLeft: 'auto', marginRight: '20px' }}>
-                    <button 
-                        onClick={toggleTheme} 
-                        style={{
-                            background: 'none', 
-                            border: '1px solid var(--border-light)', 
-                            borderRadius: '50%', 
-                            width: '40px', 
-                            height: '40px', 
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '1.2rem',
-                            color: 'var(--text-primary)'
-                        }}
-                        title="Toggle Theme"
-                    >
-                        {theme === 'dark' ? '☀️' : '🌙'}
-                    </button>
-                </div>
 
                 {/* Hamburger Button */}
                 <button 
@@ -73,7 +44,7 @@ const Navbar = () => {
                             {user.role === 'user' && (
                                 <>
                                     <li><Link to="/profile" className="nav-link" onClick={closeMenu}>My Account</Link></li>
-                                    <li><Link to="/profile" className="nav-link" onClick={() => { closeMenu(); /* Navigate to profile but maybe auto-switch tab? For now just link to profile */ }}>Cart</Link></li>
+                                    <li><Link to="/profile" className="nav-link" onClick={() => { closeMenu(); }}>Cart</Link></li>
                                 </>
                             )}
                             {user.role === 'vendor' && (

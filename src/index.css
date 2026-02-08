@@ -34,31 +34,7 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Light Theme Variables */
-/* Light Theme Variables - Enhanced for Luxury & Legibility */
-[data-theme='light'] {
-  --bg-primary: #f5f5f7;
-  /* Very subtle luxury grey tint */
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
 
-  --accent-primary: #c5a028;
-  /* Deep Gold */
-  --accent-secondary: #111111;
-
-  --text-primary: #000000;
-  /* Pure Black for max contrast */
-  --text-secondary: #333333;
-  /* Dark Grey */
-  --text-muted: #555555;
-
-  --border-light: rgba(0, 0, 0, 0.08);
-  --border-focus: rgba(197, 160, 40, 0.4);
-
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04);
-  --glow: 0 0 12px rgba(197, 160, 40, 0.15);
-}
 
 html {
   background-color: var(--bg-primary);
@@ -181,13 +157,7 @@ h1 {
   color: var(--text-primary);
 }
 
-/* Ensure H1 is visible in light mode even with background clip */
-[data-theme='light'] h1 {
-  background: linear-gradient(135deg, #000000 0%, #444444 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+
 
 h2 {
   font-size: 2.75rem;
@@ -301,9 +271,7 @@ a:hover {
   color: var(--text-primary);
 }
 
-[data-theme='light'] .btn-secondary:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
+
 
 .btn-danger {
   background: rgba(231, 76, 60, 0.1);
@@ -348,15 +316,7 @@ a:hover {
   box-sizing: border-box;
 }
 
-[data-theme='light'] .form-group input,
-[data-theme='light'] .form-group textarea,
-[data-theme='light'] .form-group select {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-  color: #000000;
-  /* Force black for maximum legibility */
-}
+
 
 input:focus,
 textarea:focus,
@@ -481,11 +441,7 @@ select:focus {
     border-left: 1px solid rgba(212, 175, 55, 0.15);
   }
 
-  [data-theme='light'] .navbar-nav {
-    background: linear-gradient(165deg, #ffffff 0%, #f0f0f0 100%);
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
-  }
+
 
   .navbar-nav.active {
     right: 0;
