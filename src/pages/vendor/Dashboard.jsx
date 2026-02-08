@@ -25,10 +25,7 @@ const RestaurantDashboard = () => {
                 
                 // Fetch listings
                 const listingsRes = await axios.get('/api/vendors/listings', config);
-                // Filter out expired if requested, but owners usually want to see them.
-                // However, user said "remove permanently", so let's filter them out here too.
-                const activeOnes = listingsRes.data.filter(l => l.status !== 'expired');
-                setListings(activeOnes);
+                setListings(listingsRes.data);
                 
                 setLoading(false);
             } catch (error) {
@@ -51,6 +48,13 @@ const RestaurantDashboard = () => {
              }
         }
     }
+
+    const getImageUrl = (imagePath) => {
+        if (!imagePath) return "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2";
+        if (imagePath.startsWith('http')) return imagePath;
+        const apiBase = axios.defaults.baseURL || '';
+        return `${apiBase}/${imagePath}`;
+    };
 
     if (loading) return <div className="loader"></div>;
 
@@ -101,7 +105,7 @@ const RestaurantDashboard = () => {
                         {listings.map(listing => (
                              <div key={listing._id} className="listing-manage-card">
                                 <div className="card-img-container">
-                                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&blur=2" alt={listing.title} />
+                                    <img src={getImageUrl(listing.image)} alt={listing.title} />
                                     <span className={`status-badge ${listing.status}`}>{listing.status}</span>
                                 </div>
                                 <div className="card-info">

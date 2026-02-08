@@ -81,25 +81,29 @@ const CreateListing = () => {
                     <label>Description</label>
                     <textarea name="description" value={formData.description} onChange={handleChange}></textarea>
                 </div>
-                 <div className="form-group">
-                    <label>Original Price</label>
-                    <input name="originalPrice" type="number" onChange={handleChange} required />
+                <div className="form-group">
+                    <label>Original Price (₹)</label>
+                    <input name="originalPrice" type="number" value={formData.originalPrice} onChange={handleChange} required />
                 </div>
                  <div className="form-group">
-                    <label>Discounted Price</label>
-                    <input name="discountedPrice" type="number" onChange={handleChange} required />
+                    <label>Discounted Price (₹)</label>
+                    <input name="discountedPrice" type="number" value={formData.discountedPrice} onChange={handleChange} required />
                 </div>
                  <div className="form-group">
                     <label>Quantity (Bundles)</label>
-                    <input name="quantity" type="number" onChange={handleChange} required />
+                    <input name="quantity" type="number" value={formData.quantity} onChange={handleChange} required />
                 </div>
                  <div className="form-group">
                     <label>Pickup Start Time</label>
-                    <input name="pickupStart" type="datetime-local" onChange={handleChange} required />
+                    <input name="pickupStart" type="datetime-local" value={formData.pickupStart} onChange={handleChange} required />
                 </div>
                  <div className="form-group">
                     <label>Pickup End Time</label>
-                    <input name="pickupEnd" type="datetime-local" onChange={handleChange} required />
+                    <input name="pickupEnd" type="datetime-local" value={formData.pickupEnd} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                    <label>Food Item Photo</label>
+                    <input type="file" accept="image/*" onChange={handleFile} />
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Create Listing</button>
