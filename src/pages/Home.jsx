@@ -32,12 +32,13 @@ const Home = () => {
     }, [selectedCategory]);
 
     const fetchListings = async () => {
+        const apiUrl = selectedCategory === 'All' 
+            ? '/api/listings' 
+            : `/api/listings?category=${selectedCategory}`;
+            
         try {
             setLoading(true);
-            const url = selectedCategory === 'All' 
-                ? '/api/listings' 
-                : `/api/listings?category=${selectedCategory}`;
-            const { data } = await axios.get(url);
+            const { data } = await axios.get(apiUrl);
             setListings(data);
             setLoading(false);
         } catch (error) {
@@ -45,7 +46,7 @@ const Home = () => {
             if (error.response) {
                 console.error('Server responded with:', error.response.status, error.response.data);
             } else if (error.request) {
-                console.error('No response received. Check CORS or if the backend is down. URL:', axios.defaults.baseURL + url);
+                console.error('No response received. Check CORS or if the backend is down. URL:', axios.defaults.baseURL + apiUrl);
             }
             setLoading(false);
         }
